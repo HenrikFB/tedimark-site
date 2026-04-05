@@ -216,6 +216,24 @@ h1, h2, h3, h4 {
   letter-spacing: -0.04em;
 }
 
+.hero-line-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.05em;
+  perspective: 600px;
+}
+
+.hero-line {
+  display: block;
+  visibility: hidden;
+  font-kerning: none;
+  text-rendering: optimizeSpeed;
+}
+
+.hero-badge {
+  opacity: 0;
+}
+
 .hero-subtitle {
   font-family: "DM Sans", sans-serif;
   font-size: clamp(1rem, 1.5vw, 1.2rem);
@@ -227,10 +245,18 @@ h1, h2, h3, h4 {
   text-transform: none;
 }
 
-.char {
+.brand-word {
   display: inline-block;
   opacity: 0;
-  transform: translateY(60px) rotateX(-40deg);
+}
+
+.brand-separator {
+  display: inline-block;
+  opacity: 0;
+}
+
+.hero-tagline {
+  min-height: 1.5em;
 }
 
 /* ═══════ MARQUEE ═══════ */

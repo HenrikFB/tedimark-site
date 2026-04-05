@@ -1,55 +1,156 @@
 "use client";
 import { useEffect, useRef } from "react";
-import { gsap } from "@/lib/gsap";
+import { gsap, SplitText } from "@/lib/gsap";
 
 export default function Hero() {
   const containerRef = useRef(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      const chars = containerRef.current.querySelectorAll(".char");
-      gsap.to(chars, {
-        opacity: 1,
-        y: 0,
-        rotateX: 0,
-        duration: 1,
-        stagger: 0.03,
-        ease: "power3.out",
-        delay: 0.3,
-      });
-
-      gsap.from(".hero-subtitle", {
-        opacity: 0,
-        y: 30,
-        duration: 1,
-        ease: "power3.out",
-        delay: 1.2,
-      });
-
-      gsap.from(".hero-badge", {
-        opacity: 0,
-        y: 20,
-        duration: 0.8,
-        ease: "power3.out",
-        delay: 0.1,
-      });
-
-    }, containerRef);
-
-    return () => ctx.revert();
-  }, []);
-
-  const headline = [
-    { text: "You review.", color: "var(--text-primary)" },
-    { text: "We handle", color: "var(--text-primary)" },
-    { text: "the rest.", color: "var(--yellow)" },
-  ];
 
   const brandWords = [
     { text: "Technology", color: "var(--blue)" },
     { text: "Digitalization", color: "var(--red)" },
     { text: "Marketing", color: "var(--green)" },
   ];
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.set(".hero-badge", { scale: 0.92, filter: "blur(6px)" });
+      gsap.set(".hero-line", {
+        visibility: "visible",
+        yPercent: 120,
+        rotateX: -25,
+      });
+      gsap.set(".brand-word", {
+        scale: 1.12,
+        filter: "blur(10px)",
+        y: 6,
+      });
+
+      const split1 = SplitText.create(".hero-line-1", {
+        type: "chars",
+        tag: "span",
+      });
+      const split2 = SplitText.create(".hero-line-2", {
+        type: "chars",
+        tag: "span",
+      });
+
+      gsap.set(split1.chars, { opacity: 0.15 });
+      gsap.set(split2.chars, { opacity: 0.15 });
+
+      const tl = gsap.timeline({ delay: 0.1 });
+
+      // ── Act 1: Badge materializes ──
+      tl.to(
+        ".hero-badge",
+        {
+          opacity: 1,
+          scale: 1,
+          filter: "blur(0px)",
+          duration: 0.5,
+          ease: "power2.out",
+        },
+        0
+      );
+
+      // ── Act 2: Masked line reveals with character micro-stagger ──
+
+      tl.to(
+        ".hero-line-1",
+        { yPercent: 0, rotateX: 0, duration: 0.8, ease: "expo.out" },
+        0.25
+      );
+      tl.to(
+        split1.chars,
+        { opacity: 1, duration: 0.4, stagger: 0.02, ease: "power1.out" },
+        0.35
+      );
+
+      tl.to(
+        ".hero-line-2",
+        { yPercent: 0, rotateX: 0, duration: 0.8, ease: "expo.out" },
+        0.45
+      );
+      tl.to(
+        split2.chars,
+        { opacity: 1, duration: 0.4, stagger: 0.02, ease: "power1.out" },
+        0.55
+      );
+
+      // ── Act 3: "the rest." — scramble starts before slide so text is garbled on entry ──
+      tl.to(
+        ".hero-line-3",
+        {
+          duration: 1.2,
+          scrambleText: {
+            text: "the rest.",
+            chars: "█▓▒░TEDIMARK",
+            revealDelay: 0.2,
+            speed: 0.4,
+          },
+          ease: "none",
+          onComplete: () => {
+            gsap.fromTo(
+              containerRef.current?.querySelector(".hero-line-3"),
+              {
+                textShadow:
+                  "0 0 25px var(--yellow), 0 0 50px rgba(255,200,0,0.3)",
+              },
+              {
+                textShadow:
+                  "0 0 0px transparent, 0 0 0px transparent",
+                duration: 1,
+                ease: "power2.out",
+              }
+            );
+          },
+        },
+        0.55
+      );
+
+      tl.to(
+        ".hero-line-3",
+        { yPercent: 0, rotateX: 0, duration: 0.8, ease: "expo.out" },
+        0.65
+      );
+
+      // ── Act 4: Brand words — blur decode ──
+      tl.to(
+        ".brand-word",
+        {
+          opacity: 1,
+          scale: 1,
+          filter: "blur(0px)",
+          y: 0,
+          duration: 0.5,
+          stagger: 0.15,
+          ease: "power2.out",
+        },
+        1.5
+      );
+
+      tl.to(
+        ".brand-separator",
+        { opacity: 1, duration: 0.3, stagger: 0.12 },
+        1.6
+      );
+
+      // ── Act 5: Tagline typewriter ──
+      tl.to(
+        ".hero-tagline",
+        {
+          duration: 1.5,
+          text: {
+            value:
+              "From idea to launch \u2014 you set the vision, we build it.",
+          },
+          ease: "none",
+        },
+        2.2
+      );
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
     <section className="hero-section" ref={containerRef}>
@@ -99,35 +200,44 @@ export default function Hero() {
       </div>
 
       <h1 className="hero-title" style={{ perspective: "600px" }}>
-        {headline.map((segment, wi) => (
-          <span key={wi}>
-            {segment.text.split("").map((char, ci) => (
-              <span
-                key={`${wi}-${ci}`}
-                className="char"
-                style={{ color: segment.color }}
-              >
-                {char === " " ? "\u00A0" : char}
-              </span>
-            ))}
-            {wi < headline.length - 1 && <br />}
+        <span className="hero-line-mask">
+          <span className="hero-line hero-line-1">You review.</span>
+        </span>
+        <span className="hero-line-mask">
+          <span className="hero-line hero-line-2">We handle</span>
+        </span>
+        <span className="hero-line-mask">
+          <span
+            className="hero-line hero-line-3"
+            style={{ color: "var(--yellow)" }}
+          >
+            the rest.
           </span>
-        ))}
+        </span>
       </h1>
 
       <p className="hero-subtitle" style={{ marginTop: "2.5rem" }}>
         {brandWords.map((w, i) => (
           <span key={i}>
-            <span style={{ color: w.color, fontWeight: 600 }}>{w.text}</span>
-            {i < brandWords.length - 1 ? " · " : "."}
+            <span
+              className="brand-word"
+              style={{ color: w.color, fontWeight: 600 }}
+            >
+              {w.text}
+            </span>
+            {i < brandWords.length - 1 ? (
+              <span className="brand-separator"> · </span>
+            ) : (
+              <span className="brand-separator">.</span>
+            )}
           </span>
         ))}
         <br />
-        <span style={{ marginTop: "0.5rem", display: "inline-block" }}>
-          From idea to launch — you set the vision, we build it.
-        </span>
+        <span
+          className="hero-tagline"
+          style={{ marginTop: "0.5rem", display: "inline-block" }}
+        />
       </p>
-
     </section>
   );
 }
