@@ -3,6 +3,8 @@ import { useEffect, useRef } from "react";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { processSteps } from "@/lib/content";
 import { Search, Compass, Hammer, Rocket } from "lucide-react";
+import BlockReveal from "@/components/TextAnimations/BlockReveal";
+import CharReveal from "@/components/TextAnimations/CharReveal";
 
 const stepIcons = [Search, Compass, Hammer, Rocket];
 
@@ -88,24 +90,28 @@ export default function StickyCards() {
         <div className="section-label" style={{ color: "var(--red)" }}>
           Process
         </div>
-        <h2 style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)", color: "#0a0a0f" }}>
-          From chaos to clarity
-        </h2>
-        <p
-          style={{
-            fontFamily: "'DM Sans', sans-serif",
-            fontSize: "1.1rem",
-            color: "#4a4a5a",
-            maxWidth: "500px",
-            marginTop: "1rem",
-            lineHeight: 1.7,
-            textTransform: "none",
-            fontWeight: 400,
-          }}
-        >
-          Four phases. Continuous milestones. You never have to think about the
-          technology — only whether it meets your vision.
-        </p>
+        <BlockReveal blockColor="var(--red)" animateOnScroll>
+          <h2 style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)", color: "#0a0a0f" }}>
+            From chaos to clarity
+          </h2>
+        </BlockReveal>
+        <CharReveal animateOnScroll stagger={0.02} duration={0.5}>
+          <p
+            style={{
+              fontFamily: "'DM Sans', sans-serif",
+              fontSize: "1.1rem",
+              color: "#4a4a5a",
+              maxWidth: "500px",
+              marginTop: "1rem",
+              lineHeight: 1.7,
+              textTransform: "none",
+              fontWeight: 400,
+            }}
+          >
+            Four phases. Continuous milestones. You never have to think about the
+            technology — only whether it meets your vision.
+          </p>
+        </CharReveal>
       </section>
       <section className="sticky-cards-section" ref={sectionRef}>
         {processSteps.map((step, i) => {

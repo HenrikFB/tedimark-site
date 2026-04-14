@@ -2,6 +2,7 @@ import { services } from "@/lib/content";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Footer from "@/components/Footer/Footer";
+import BlockReveal from "@/components/TextAnimations/BlockReveal";
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
@@ -20,7 +21,9 @@ export default async function ServicePage({ params }) {
         <div className="section-label" style={{ color: "rgba(255,255,255,0.6)" }}>
           Services
         </div>
-        <h1>{service.title}</h1>
+        <BlockReveal blockColor={service.color} animateOnScroll={false}>
+          <h1>{service.title}</h1>
+        </BlockReveal>
       </section>
 
       <div className="service-content">

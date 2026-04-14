@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef } from "react";
+import LightningText from "@/components/TextAnimations/LightningText";
 
 export default function CursorLight() {
   const sectionRef = useRef(null);
@@ -164,14 +165,16 @@ export default function CursorLight() {
         <div className="fire-glow" />
       </div>
 
-      <h2>
-        Ready to build
-        <br />
-        something{" "}
-        <span style={{ color: "var(--blue)" }}>extra</span>
-        <span style={{ color: "var(--red)" }}>ordi</span>
-        <span style={{ color: "var(--green)" }}>nary</span>?
-      </h2>
+      <LightningText useScrollTrigger repulseInterval={6} lightningColor="var(--green)">
+        <h2>
+          Ready to build
+          <br />
+          something{" "}
+          <span style={{ color: "var(--blue)" }}>extra</span>
+          <span style={{ color: "var(--red)" }}>ordi</span>
+          <span style={{ color: "var(--green)" }}>nary</span>?
+        </h2>
+      </LightningText>
 
       <p className="cta-text">
         Tell us about your project and we&apos;ll get back with a plan.

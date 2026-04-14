@@ -4,6 +4,8 @@ import {
   researchProjects,
   educationCourses,
 } from "@/lib/content";
+import BlockReveal from "@/components/TextAnimations/BlockReveal";
+import CharReveal from "@/components/TextAnimations/CharReveal";
 
 export default function ProjectsPage() {
   return (
@@ -13,14 +15,16 @@ export default function ProjectsPage() {
         <div className="section-label" style={{ color: "var(--blue)" }}>
           Work
         </div>
-        <h1
-          style={{
-            fontSize: "clamp(3rem, 8vw, 7rem)",
-            lineHeight: 0.95,
-          }}
-        >
-          Selected Projects
-        </h1>
+        <BlockReveal blockColor="var(--blue)" animateOnScroll={false}>
+          <h1
+            style={{
+              fontSize: "clamp(3rem, 8vw, 7rem)",
+              lineHeight: 0.95,
+            }}
+          >
+            Selected Projects
+          </h1>
+        </BlockReveal>
         <p
           style={{
             fontFamily: "'DM Sans', sans-serif",
@@ -82,17 +86,19 @@ export default function ProjectsPage() {
               >
                 {project.category}
               </div>
-              <h3
-                style={{
-                  fontFamily: "'Barlow Condensed', sans-serif",
-                  fontSize: "1.5rem",
-                  fontWeight: 800,
-                  textTransform: "uppercase",
-                  marginBottom: "0.5rem",
-                }}
-              >
-                {project.title}
-              </h3>
+              <CharReveal animateOnScroll stagger={0.03} duration={0.5}>
+                <h3
+                  style={{
+                    fontFamily: "'Barlow Condensed', sans-serif",
+                    fontSize: "1.5rem",
+                    fontWeight: 800,
+                    textTransform: "uppercase",
+                    marginBottom: "0.5rem",
+                  }}
+                >
+                  {project.title}
+                </h3>
+              </CharReveal>
               <p
                 style={{
                   fontSize: "0.9rem",
@@ -134,7 +140,9 @@ export default function ProjectsPage() {
             <div className="section-label" style={{ color: "var(--green)" }}>
               Academic &amp; Personal
             </div>
-            <h2 className="research-title">Research &amp; Exploration</h2>
+            <CharReveal animateOnScroll stagger={0.04}>
+              <h2 className="research-title">Research &amp; Exploration</h2>
+            </CharReveal>
           </div>
           <span className="section-count-badge">11 projects</span>
         </div>
@@ -166,9 +174,11 @@ export default function ProjectsPage() {
             <div className="section-label" style={{ color: "var(--yellow)" }}>
               Academic Background
             </div>
-            <h2 className="education-title">
-              Education — MSc &amp; BSc IT Product Development
-            </h2>
+            <CharReveal animateOnScroll stagger={0.04}>
+              <h2 className="education-title">
+                Education — MSc &amp; BSc IT Product Development
+              </h2>
+            </CharReveal>
           </div>
           <span className="section-count-badge">30+ courses</span>
         </div>

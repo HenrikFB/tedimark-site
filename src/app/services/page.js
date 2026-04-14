@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { services } from "@/lib/content";
 import Footer from "@/components/Footer/Footer";
+import BlockReveal from "@/components/TextAnimations/BlockReveal";
+import CharReveal from "@/components/TextAnimations/CharReveal";
 
 export default function ServicesPage() {
   return (
@@ -17,9 +19,11 @@ export default function ServicesPage() {
         <div className="section-label" style={{ color: "var(--red)" }}>
           What we do
         </div>
-        <h1 style={{ fontSize: "clamp(3rem, 8vw, 7rem)", lineHeight: 0.95 }}>
-          Our Services
-        </h1>
+        <BlockReveal blockColor="var(--blue)" animateOnScroll={false}>
+          <h1 style={{ fontSize: "clamp(3rem, 8vw, 7rem)", lineHeight: 0.95 }}>
+            Our Services
+          </h1>
+        </BlockReveal>
       </section>
 
       <section style={{ padding: "2rem", maxWidth: "1200px", margin: "0 auto" }}>
@@ -62,17 +66,19 @@ export default function ServicesPage() {
                   }}
                 />
                 <div>
-                  <h3
-                    style={{
-                      fontFamily: "'Barlow Condensed', sans-serif",
-                      fontSize: "1.8rem",
-                      fontWeight: 800,
-                      textTransform: "uppercase",
-                      marginBottom: "0.75rem",
-                    }}
-                  >
-                    {service.title}
-                  </h3>
+                  <CharReveal animateOnScroll stagger={0.03}>
+                    <h3
+                      style={{
+                        fontFamily: "'Barlow Condensed', sans-serif",
+                        fontSize: "1.8rem",
+                        fontWeight: 800,
+                        textTransform: "uppercase",
+                        marginBottom: "0.75rem",
+                      }}
+                    >
+                      {service.title}
+                    </h3>
+                  </CharReveal>
                   <p
                     style={{
                       fontSize: "0.9rem",

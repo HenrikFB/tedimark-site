@@ -11,6 +11,8 @@ import {
   Cpu,
   ShieldCheck,
 } from "lucide-react";
+import LightningText from "@/components/TextAnimations/LightningText";
+import CharReveal from "@/components/TextAnimations/CharReveal";
 
 const serviceIcons = {
   "ai-engineering": Brain,
@@ -275,27 +277,30 @@ export default function ServicesHover() {
 
   return (
     <section className="services-section" ref={sectionRef}>
-      <div
-        className="section-label reveal"
-        style={{ color: "var(--blue)", textAlign: "center" }}
-      >
-        Services
-      </div>
-      <h2
-        className="reveal"
-        style={{
-          fontFamily: "'DM Sans', sans-serif",
-          fontSize: "clamp(1rem, 2vw, 1.2rem)",
-          color: "var(--text-secondary)",
-          textTransform: "none",
-          fontWeight: 400,
-          textAlign: "center",
-          marginBottom: "3rem",
-          maxWidth: "500px",
-        }}
-      >
-        Everything under one roof. No coordination required.
-      </h2>
+      <LightningText useScrollTrigger repulseInterval={10} lightningColor="var(--blue)">
+        <div
+          className="section-label"
+          style={{ color: "var(--blue)", textAlign: "center" }}
+        >
+          Services
+        </div>
+      </LightningText>
+      <CharReveal animateOnScroll stagger={0.03} duration={0.5}>
+        <h2
+          style={{
+            fontFamily: "'DM Sans', sans-serif",
+            fontSize: "clamp(1rem, 2vw, 1.2rem)",
+            color: "var(--text-secondary)",
+            textTransform: "none",
+            fontWeight: 400,
+            textAlign: "center",
+            marginBottom: "3rem",
+            maxWidth: "500px",
+          }}
+        >
+          Everything under one roof. No coordination required.
+        </h2>
+      </CharReveal>
 
       <p className="services-tap-hint">Tap a service to preview</p>
 

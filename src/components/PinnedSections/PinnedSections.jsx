@@ -49,9 +49,14 @@ export default function PinnedSections({ sections }) {
         <section
           key={i}
           className="pinned-section"
-          style={{ backgroundColor: section.bg }}
         >
-          <div className="pinned-container" style={{ color: section.textColor || "#fff" }}>
+          <div
+            className="pinned-container"
+            style={{
+              backgroundColor: section.bg,
+              color: section.textColor || "#fff",
+            }}
+          >
             <div
               style={{
                 maxWidth: "800px",
