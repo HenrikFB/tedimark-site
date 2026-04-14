@@ -312,12 +312,18 @@ export const stats = [
   { value: "End-to-end", label: "You review — we build" },
 ];
 
-export const marqueeItems = [
-  "Volkswagen Innovation Project",
-  "AI Enterprise Compliance Chatbot",
+export const marqueeRow1 = [
   "Menu-to-JSON Data Pipeline",
+  "AI Enterprise Compliance Chatbot",
+  "Tax Authority Data Automation",
+  "Volkswagen Innovation Project",
+  "Accounting & Reconciliation Platform",
+];
+
+export const marqueeRow2 = [
   "Gesture-Controlled Drone",
   "Shape-Changing Controller",
   "IoT Table Occupancy Detection",
-  "Tax Authority Data Automation",
+  "Social Distance Detection",
+  "Blockchain Exhibition",
 ];
