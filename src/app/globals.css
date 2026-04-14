@@ -273,12 +273,12 @@ h1, h2, h3, h4 {
 .marquee-track {
   display: flex;
   gap: 3rem;
-  animation: marquee 30s linear infinite;
+  animation: marquee 60s linear infinite;
   width: max-content;
 }
 
 .marquee-track--reverse {
-  animation: marquee-reverse 35s linear infinite;
+  animation: marquee-reverse 70s linear infinite;
 }
 
 .marquee-item {
