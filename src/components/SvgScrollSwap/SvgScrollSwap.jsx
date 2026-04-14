@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useRef } from "react";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
-import LightningText from "@/components/TextAnimations/LightningText";
 
 export default function SvgScrollSwap() {
   const sectionRef = useRef(null);
@@ -12,6 +11,8 @@ export default function SvgScrollSwap() {
 
     const paths = section.querySelectorAll(".swap-path");
     const intro = section.querySelector(".svg-swap-intro");
+
+    gsap.set(intro, { opacity: 0, y: 20 });
 
     paths.forEach((path) => {
       const length = path.getTotalLength();
@@ -29,6 +30,13 @@ export default function SvgScrollSwap() {
       },
     });
 
+    tl.to(intro, {
+      opacity: 1,
+      y: 0,
+      duration: 0.15,
+      ease: "power2.out",
+    }, 0);
+
     paths.forEach((path, i) => {
       tl.to(
         path,
@@ -37,7 +45,7 @@ export default function SvgScrollSwap() {
           duration: 1,
           ease: "none",
         },
-        i * 0.2
+        0.1 + i * 0.2
       );
     });
 
@@ -56,14 +64,12 @@ export default function SvgScrollSwap() {
     >
       <div className="svg-swap-intro">
         <div style={{ textAlign: "center", zIndex: 2 }}>
-          <LightningText useScrollTrigger repulseInterval={8} lightningColor="var(--blue)">
-            <div className="section-label" style={{ color: "var(--blue)" }}>
-              Process
-            </div>
-            <h2 style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>
-              How we work
-            </h2>
-          </LightningText>
+          <div className="section-label" style={{ color: "var(--blue)" }}>
+            Process
+          </div>
+          <h2 style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>
+            How we work
+          </h2>
         </div>
       </div>
 
