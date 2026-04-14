@@ -534,14 +534,19 @@ h1, h2, h3, h4 {
   padding: 6rem 2rem;
   max-width: 1200px;
   margin: 0 auto;
+  border-top: 1px solid var(--border);
+}
+
+.stats-layout {
+  display: flex;
+  gap: 4rem;
+  align-items: center;
 }
 
 .stats-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
-  padding-top: 4rem;
-  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 3rem;
+  flex-shrink: 0;
 }
 
 .stat-item {
@@ -550,15 +555,50 @@ h1, h2, h3, h4 {
 
 .stat-value {
   font-family: "Barlow Condensed", sans-serif;
-  font-size: 3rem;
+  font-size: 3.5rem;
   font-weight: 900;
   line-height: 1;
   margin-bottom: 0.5rem;
 }
 
 .stat-label {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.stats-blurb {
+  border-left: 1px solid var(--border);
+  padding-left: 3rem;
+}
+
+.stats-blurb-label {
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--yellow);
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.stats-blurb-text {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.3;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.stats-blurb-sub {
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-weight: 400;
+  text-transform: none;
 }
 
 /* ═══════ CURSOR LIGHT (Guiding Light) ═══════ */
@@ -1008,8 +1048,24 @@ h1, h2, h3, h4 {
     flex-direction: column;
   }
   .sticky-card .card-col { width: 100%; }
+  .stats-layout {
+    flex-direction: column;
+    gap: 2.5rem;
+    align-items: flex-start;
+  }
   .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    width: 100%;
+    justify-content: space-between;
+  }
+  .stat-value {
+    font-size: 2.5rem;
+  }
+  .stats-blurb {
+    border-left: none;
+    border-top: 1px solid var(--border);
+    padding-left: 0;
+    padding-top: 2rem;
   }
   .marquee-section {
     padding: 1.25rem 0;

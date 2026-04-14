@@ -306,10 +306,9 @@ export const educationCourses = [
 ];
 
 export const stats = [
-  { value: "1", label: "Person — from idea to launch" },
+  { value: "20", label: "Projects delivered" },
   { value: "7", label: "Disciplines covered" },
-  { value: "MSc + BSc", label: "IT Product Development" },
-  { value: "End-to-end", label: "You review — we build" },
+  { value: "30", label: "Courses completed" },
 ];
 
 export const marqueeRow1 = [
