@@ -313,11 +313,11 @@ export const stats = [
 ];
 
 export const marqueeItems = [
-  "AI Engineering",
-  "Automation",
-  "Web & Mobile",
-  "Hardware & IoT",
-  "MVPs & Go-to-Market",
-  "Third-Party SDKs",
-  "IT Compliance",
+  "Volkswagen Innovation Project",
+  "AI Enterprise Compliance Chatbot",
+  "Menu-to-JSON Data Pipeline",
+  "Gesture-Controlled Drone",
+  "Shape-Changing Controller",
+  "IoT Table Occupancy Detection",
+  "Tax Authority Data Automation",
 ];
