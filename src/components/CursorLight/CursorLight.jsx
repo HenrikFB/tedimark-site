@@ -2,7 +2,7 @@
 import { useEffect, useRef } from "react";
 import LightningText from "@/components/TextAnimations/LightningText";
 
-export default function CursorLight() {
+export default function CursorLight({ ctaHref = "/contact", ctaLabel = "Start a conversation" }) {
   const sectionRef = useRef(null);
   const lottieContainerRef = useRef(null);
   const maskRef = useRef(null);
@@ -180,8 +180,8 @@ export default function CursorLight() {
         Tell us about your project and we&apos;ll get back with a plan.
       </p>
 
-      <a href="mailto:henrik@fogbunzel.dk" className="cta-button">
-        Start a conversation <span>→</span>
+      <a href={ctaHref} className="cta-button">
+        {ctaLabel} <span>→</span>
       </a>
     </section>
   );

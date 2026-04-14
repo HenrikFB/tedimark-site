@@ -53,7 +53,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <CursorLight />
+      <CursorLight ctaHref="mailto:henrik@fogbunzel.dk" ctaLabel="henrik@fogbunzel.dk" />
       <Footer />
     </main>
   );
