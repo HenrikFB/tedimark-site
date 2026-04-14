@@ -24,7 +24,7 @@ export default function SvgScrollSwap() {
       scrollTrigger: {
         trigger: section,
         start: "top top",
-        end: `+=${window.innerHeight * 4}`,
+        end: `+=${window.innerHeight * 2.5}`,
         pin: true,
         scrub: 1,
       },
@@ -45,15 +45,15 @@ export default function SvgScrollSwap() {
           duration: 1,
           ease: "none",
         },
-        0.1 + i * 0.2
+        0.05 + i * 0.15
       );
     });
 
     tl.to(section, {
       opacity: 0,
-      duration: 0.15,
+      duration: 0.2,
       ease: "power2.in",
-    }, 0.85);
+    }, 1.3);
 
     return () => {
       ScrollTrigger.getAll().forEach((st) => {
