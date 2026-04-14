@@ -1103,3 +1103,86 @@ h1, h2, h3, h4 {
     display: none;
   }
 }
+
+/* ═══════ CONTACT BRIEF ═══════ */
+.contact-brief {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 2rem 4rem;
+}
+
+.contact-brief-inner {
+  max-width: 1000px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.contact-brief-title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  line-height: 1;
+  margin-bottom: 1.5rem;
+}
+
+.contact-brief-lead {
+  font-family: "DM Sans", sans-serif;
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  text-transform: none;
+  font-weight: 400;
+  max-width: 400px;
+}
+
+.contact-brief-items {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  padding-top: 0.5rem;
+}
+
+.contact-brief-item {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+.contact-brief-num {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  flex-shrink: 0;
+  line-height: 1.2;
+}
+
+.contact-brief-item-title {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 0.35rem;
+}
+
+.contact-brief-item-desc {
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  text-transform: none;
+  font-weight: 400;
+}
+
+@media (max-width: 768px) {
+  .contact-brief {
+    padding: 100px 1.5rem 3rem;
+    min-height: auto;
+  }
+  .contact-brief-inner {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}
