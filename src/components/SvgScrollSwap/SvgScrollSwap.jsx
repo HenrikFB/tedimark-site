@@ -49,6 +49,12 @@ export default function SvgScrollSwap() {
       );
     });
 
+    tl.to(section, {
+      opacity: 0,
+      duration: 0.15,
+      ease: "power2.in",
+    }, 0.85);
+
     return () => {
       ScrollTrigger.getAll().forEach((st) => {
         if (st.trigger === section) st.kill();
