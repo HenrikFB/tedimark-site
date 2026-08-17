@@ -76,7 +76,7 @@ export default function Stats() {
             MSc + BSc in IT Product Development — from algorithms to product launch.
           </p>
           <p className="stats-blurb-sub">
-            One person covers the full chain. You review, we build.
+            One person covers the full chain. You review, I build.
           </p>
         </div>
       </div>

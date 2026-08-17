@@ -15,7 +15,7 @@ export default function ContactPage() {
               <h1 className="contact-brief-title">Before you reach out</h1>
             </BlockReveal>
             <p className="contact-brief-lead">
-              We don&apos;t need a 20-page brief. Just a sense of direction.
+              I don&apos;t need a 20-page brief. Just a sense of direction.
             </p>
           </div>
 

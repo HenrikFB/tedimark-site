@@ -6,7 +6,7 @@ import Navigation from "@/components/Navigation/Navigation";
 export const metadata = {
   title: "TeDiMark — Technology. Digitalization. Marketing.",
   description:
-    "We transform businesses through technology, digitalization, and strategic marketing. From AI engineering to go-to-market.",
+    "I transform businesses through technology, digitalization, and strategic marketing. From AI engineering to go-to-market.",
 };
 
 export default function RootLayout({ children }) {

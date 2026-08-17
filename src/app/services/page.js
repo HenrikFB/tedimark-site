@@ -17,11 +17,11 @@ export default function ServicesPage() {
         }}
       >
         <div className="section-label" style={{ color: "var(--red)" }}>
-          What we do
+          What I do
         </div>
         <BlockReveal blockColor="var(--blue)" animateOnScroll={false}>
           <h1 style={{ fontSize: "clamp(3rem, 8vw, 7rem)", lineHeight: 0.95 }}>
-            Our Services
+            Services
           </h1>
         </BlockReveal>
       </section>

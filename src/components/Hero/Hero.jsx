@@ -141,7 +141,7 @@ export default function Hero() {
           duration: 1.5,
           text: {
             value:
-              "From idea to launch \u2014 you set the vision, we build it.",
+              "From idea to launch \u2014 you set the vision, I build it.",
           },
           ease: "none",
         },
@@ -204,7 +204,7 @@ export default function Hero() {
           <span className="hero-line hero-line-1">You review.</span>
         </span>
         <span className="hero-line-mask">
-          <span className="hero-line hero-line-2">We handle</span>
+          <span className="hero-line hero-line-2">I handle</span>
         </span>
         <span className="hero-line-mask">
           <span

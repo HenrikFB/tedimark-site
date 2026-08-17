@@ -74,7 +74,7 @@ export default function SvgScrollSwap() {
             Process
           </div>
           <h2 style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>
-            How we work
+            How I work
           </h2>
         </div>
       </div>

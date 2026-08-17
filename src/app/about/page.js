@@ -22,17 +22,17 @@ const aboutSections = [
   },
   {
     label: "Philosophy",
-    title: "You review. We build.",
+    title: "You review. I build.",
     description:
-      "We believe in radical ownership. When you hand us a problem, we don't come back with questions about which framework to use. We come back with a working solution. Our process is transparent — continuous demos, clear milestones, and zero surprises.",
+      "I believe in radical ownership. When you hand me a problem, I don't come back with questions about which framework to use. I come back with a working solution. The process is transparent — continuous demos, clear milestones, and zero surprises.",
     bg: "var(--red)",
     labelColor: "rgba(255,255,255,0.5)",
   },
   {
     label: "Approach",
-    title: "One team covers the full chain",
+    title: "I cover the full chain",
     description:
-      "From the first user interview to the deployed product — we cover AI engineering, automation, software development, third-party integrations, hardware, and compliance. No juggling five different freelancers. No coordination overhead.",
+      "From the first user interview to the deployed product — I cover AI engineering, automation, software development, third-party integrations, hardware, and compliance. No juggling five different freelancers. No coordination overhead.",
     bg: "var(--green)",
     labelColor: "rgba(255,255,255,0.5)",
     items: [
