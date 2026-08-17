@@ -9,7 +9,7 @@ function getTransitionConfig() {
   const mobile =
     typeof window !== "undefined" && window.matchMedia(MOBILE_MQ).matches;
   return mobile
-    ? { leaveWidth: 1400, enterWidth: 500, duration: 0.45, leaveEase: "power2.out" }
+    ? { leaveWidth: 700, enterWidth: 200, duration: 0.45, leaveEase: "power2.out" }
     : { leaveWidth: 700, enterWidth: 200, duration: 0.8, leaveEase: "power2.inOut" };
 }
 
