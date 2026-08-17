@@ -3,6 +3,16 @@ import { useRef, useEffect } from "react";
 import { TransitionRouter } from "next-transition-router";
 import gsap from "gsap";
 
+const MOBILE_MQ = "(max-width: 768px)";
+
+function getTransitionConfig() {
+  const mobile =
+    typeof window !== "undefined" && window.matchMedia(MOBILE_MQ).matches;
+  return mobile
+    ? { leaveWidth: 1400, enterWidth: 500, duration: 0.45, leaveEase: "power2.out" }
+    : { leaveWidth: 700, enterWidth: 200, duration: 0.8, leaveEase: "power2.inOut" };
+}
+
 export default function TransitionProvider({ children }) {
   const svgRef = useRef(null);
   const pathsRef = useRef([]);
@@ -12,12 +22,13 @@ export default function TransitionProvider({ children }) {
     if (!svgRef.current) return;
     const paths = svgRef.current.querySelectorAll("path");
     pathsRef.current = Array.from(paths);
+    const { leaveWidth, enterWidth, duration } = getTransitionConfig();
 
     pathsRef.current.forEach((path) => {
       const length = path.getTotalLength();
       path.style.strokeDasharray = length;
       path.style.strokeDashoffset = 0;
-      path.setAttribute("stroke-width", "700");
+      path.setAttribute("stroke-width", String(leaveWidth));
     });
 
     const introTl = gsap.timeline({
@@ -33,8 +44,8 @@ export default function TransitionProvider({ children }) {
         path,
         {
           strokeDashoffset: -length,
-          attr: { "stroke-width": 200 },
-          duration: 0.8,
+          attr: { "stroke-width": enterWidth },
+          duration,
           ease: "power2.inOut",
           onComplete: () => {
             gsap.set(path, { strokeDashoffset: length });
@@ -49,15 +60,16 @@ export default function TransitionProvider({ children }) {
     <TransitionRouter
       auto
       leave={(next) => {
+        const { leaveWidth, duration, leaveEase } = getTransitionConfig();
         const tween = gsap.timeline({ onComplete: next });
         pathsRef.current.forEach((path) => {
           tween.to(
             path,
             {
               strokeDashoffset: 0,
-              attr: { "stroke-width": 700 },
-              duration: 0.8,
-              ease: "power2.inOut",
+              attr: { "stroke-width": leaveWidth },
+              duration,
+              ease: leaveEase,
             },
             0
           );
@@ -69,6 +81,7 @@ export default function TransitionProvider({ children }) {
           next();
           return;
         }
+        const { enterWidth, duration } = getTransitionConfig();
         const tween = gsap.timeline({ onComplete: next });
         pathsRef.current.forEach((path) => {
           const length = path.getTotalLength();
@@ -76,8 +89,8 @@ export default function TransitionProvider({ children }) {
             path,
             {
               strokeDashoffset: -length,
-              attr: { "stroke-width": 200 },
-              duration: 0.8,
+              attr: { "stroke-width": enterWidth },
+              duration,
               ease: "power2.inOut",
               onComplete: () => {
                 gsap.set(path, { strokeDashoffset: length });
