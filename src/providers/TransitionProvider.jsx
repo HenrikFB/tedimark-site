@@ -4,35 +4,18 @@ import { TransitionRouter } from "next-transition-router";
 import gsap from "gsap";
 
 const MOBILE_MQ = "(max-width: 768px)";
-
-// Portrait-tuned geometry for phones: two paths snake down a tall/narrow
-// canvas so a thick stroke sweep covers the screen without distortion.
-const MOBILE_VIEWBOX = "0 0 1080 2340";
-const MOBILE_PATHS = [
-  {
-    d: "M250 -200C250 150 850 250 820 600C790 950 230 1000 260 1350C290 1700 860 1750 800 2100C760 2350 400 2450 400 2540",
-    stroke: "#2563EB",
-  },
-  {
-    d: "M830 -200C830 150 230 250 260 600C290 950 850 1000 820 1350C790 1700 220 1750 280 2100C320 2350 680 2450 680 2540",
-    stroke: "#EF4444",
-  },
-];
-
-function getTransitionConfig(isMobile) {
-  return isMobile
-    ? { leaveWidth: 760, enterWidth: 220, duration: 0.45, leaveEase: "power2.out" }
-    : { leaveWidth: 700, enterWidth: 200, duration: 0.8, leaveEase: "power2.inOut" };
-}
+const MOBILE_DURATION = 0.55;
+const MOBILE_EASE = "power3.inOut";
 
 export default function TransitionProvider({ children }) {
   const svgRef = useRef(null);
   const pathsRef = useRef([]);
+  const panelRef = useRef(null);
   const isInitialLoad = useRef(true);
   const introTlRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Track viewport reactively so we swap geometry on rotate / resize.
+  // Track viewport reactively so we swap the transition on rotate / resize.
   useEffect(() => {
     const mql = window.matchMedia(MOBILE_MQ);
     const update = () => setIsMobile(mql.matches);
@@ -41,34 +24,57 @@ export default function TransitionProvider({ children }) {
     return () => mql.removeEventListener("change", update);
   }, []);
 
-  // (Re)measure the currently rendered paths whenever the layout mode flips.
+  // Set up the intro (initial page-load reveal) and re-init when the layout
+  // mode flips. Desktop uses the SVG stroke reveal; mobile uses a solid panel
+  // that slides up and off the screen.
   useEffect(() => {
+    introTlRef.current?.kill();
+
+    if (isMobile) {
+      if (!panelRef.current) return;
+      if (isInitialLoad.current) {
+        gsap.set(panelRef.current, { yPercent: 0 });
+        const tl = gsap.timeline({
+          delay: 0.15,
+          onComplete: () => {
+            isInitialLoad.current = false;
+            gsap.set(panelRef.current, { yPercent: 100 });
+          },
+        });
+        introTlRef.current = tl;
+        tl.to(panelRef.current, {
+          yPercent: -100,
+          duration: MOBILE_DURATION,
+          ease: MOBILE_EASE,
+        });
+      } else {
+        gsap.set(panelRef.current, { yPercent: 100 });
+      }
+      return;
+    }
+
     if (!svgRef.current) return;
     const paths = Array.from(svgRef.current.querySelectorAll("path"));
     pathsRef.current = paths;
-    const { leaveWidth, enterWidth, duration } = getTransitionConfig(isMobile);
 
     paths.forEach((path) => {
       const length = path.getTotalLength();
       path.style.strokeDasharray = length;
       path.style.strokeDashoffset = 0;
-      path.setAttribute("stroke-width", String(leaveWidth));
+      path.setAttribute("stroke-width", "700");
     });
 
-    // Only play the reveal on the very first load. When the mode switches
-    // mid-session, just park the paths off-screen so navigation still works.
     if (!isInitialLoad.current) {
       paths.forEach((path) => {
         const length = path.getTotalLength();
         gsap.set(path, {
           strokeDashoffset: length,
-          attr: { "stroke-width": enterWidth },
+          attr: { "stroke-width": 200 },
         });
       });
       return;
     }
 
-    introTlRef.current?.kill();
     const introTl = gsap.timeline({
       delay: 0.15,
       onComplete: () => {
@@ -83,8 +89,8 @@ export default function TransitionProvider({ children }) {
         path,
         {
           strokeDashoffset: -length,
-          attr: { "stroke-width": enterWidth },
-          duration,
+          attr: { "stroke-width": 200 },
+          duration: 0.8,
           ease: "power2.inOut",
           onComplete: () => {
             gsap.set(path, { strokeDashoffset: length });
@@ -99,16 +105,27 @@ export default function TransitionProvider({ children }) {
     <TransitionRouter
       auto
       leave={(next) => {
-        const { leaveWidth, duration, leaveEase } = getTransitionConfig(isMobile);
+        // MOBILE: slide the solid panel up from below to cover the screen.
+        if (isMobile) {
+          const tween = gsap.timeline({ onComplete: next });
+          gsap.set(panelRef.current, { yPercent: 100 });
+          tween.to(panelRef.current, {
+            yPercent: 0,
+            duration: MOBILE_DURATION,
+            ease: MOBILE_EASE,
+          });
+          return () => tween.kill();
+        }
+        // DESKTOP: draw the SVG strokes in to cover the screen.
         const tween = gsap.timeline({ onComplete: next });
         pathsRef.current.forEach((path) => {
           tween.to(
             path,
             {
               strokeDashoffset: 0,
-              attr: { "stroke-width": leaveWidth },
-              duration,
-              ease: leaveEase,
+              attr: { "stroke-width": 700 },
+              duration: 0.8,
+              ease: "power2.inOut",
             },
             0
           );
@@ -120,7 +137,18 @@ export default function TransitionProvider({ children }) {
           next();
           return;
         }
-        const { enterWidth, duration } = getTransitionConfig(isMobile);
+        // MOBILE: continue the panel up and off the top to reveal the page.
+        if (isMobile) {
+          const tween = gsap.timeline({ onComplete: next });
+          tween.to(panelRef.current, {
+            yPercent: -100,
+            duration: MOBILE_DURATION,
+            ease: MOBILE_EASE,
+            onComplete: () => gsap.set(panelRef.current, { yPercent: 100 }),
+          });
+          return () => tween.kill();
+        }
+        // DESKTOP: draw the SVG strokes out to reveal the page.
         const tween = gsap.timeline({ onComplete: next });
         pathsRef.current.forEach((path) => {
           const length = path.getTotalLength();
@@ -128,8 +156,8 @@ export default function TransitionProvider({ children }) {
             path,
             {
               strokeDashoffset: -length,
-              attr: { "stroke-width": enterWidth },
-              duration,
+              attr: { "stroke-width": 200 },
+              duration: 0.8,
               ease: "power2.inOut",
               onComplete: () => {
                 gsap.set(path, { strokeDashoffset: length });
@@ -141,26 +169,13 @@ export default function TransitionProvider({ children }) {
         return () => tween.kill();
       }}
     >
-      <div className="transition-svg">
-        {isMobile ? (
-          <svg
-            ref={svgRef}
-            viewBox={MOBILE_VIEWBOX}
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            preserveAspectRatio="none"
-          >
-            {MOBILE_PATHS.map((p) => (
-              <path
-                key={p.stroke}
-                d={p.d}
-                stroke={p.stroke}
-                strokeWidth="760"
-                strokeLinecap="round"
-              />
-            ))}
-          </svg>
-        ) : (
+      {isMobile ? (
+        <div className="transition-panel" ref={panelRef} aria-hidden="true">
+          <div className="transition-panel__half transition-panel__half--blue" />
+          <div className="transition-panel__half transition-panel__half--red" />
+        </div>
+      ) : (
+        <div className="transition-svg">
           <svg
             ref={svgRef}
             viewBox="0 0 2453 2535"
@@ -181,8 +196,8 @@ export default function TransitionProvider({ children }) {
               strokeLinecap="round"
             />
           </svg>
-        )}
-      </div>
+        </div>
+      )}
       {children}
     </TransitionRouter>
   );

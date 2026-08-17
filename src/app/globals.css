@@ -59,6 +59,30 @@ h1, h2, h3, h4 {
   height: 100%;
 }
 
+/* ═══════ TRANSITION PANEL (mobile) ═══════ */
+.transition-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  pointer-events: none;
+  z-index: 9999;
+  will-change: transform;
+}
+.transition-panel__half {
+  flex: 1;
+}
+.transition-panel__half--blue {
+  background-color: #2563eb;
+}
+.transition-panel__half--red {
+  background-color: #ef4444;
+}
+
 /* ═══════ NAVIGATION ═══════ */
 .nav-bar {
   position: fixed;
