@@ -36,7 +36,6 @@ export default function SvgScrollSwap() {
           pin: true,
           scrub: 1,
           invalidateOnRefresh: true,
-          anticipatePin: 1,
         },
       });
 
@@ -59,8 +58,9 @@ export default function SvgScrollSwap() {
 
     // ── MOBIL/TOUCH (jævn overgang) ──
     mm.add("(max-width: 768px)", () => {
-      gsap.set(intro, { opacity: 0, y: 20 });
-      gsap.set([svg, intro], { opacity: 1 });
+      // Ingen lodret forskydning af teksten -> intet "hop" på "Process"/"How I work".
+      gsap.set(intro, { opacity: 0, y: 0 });
+      gsap.set(svg, { opacity: 1 });
       setupPaths();
 
       const tl = gsap.timeline({
@@ -70,28 +70,30 @@ export default function SvgScrollSwap() {
           // Lidt strammere pin-distance på lille skærm.
           end: () => "+=" + window.innerHeight * 2,
           pin: true,
+          pinSpacing: true,
           scrub: 1,
           invalidateOnRefresh: true,
-          anticipatePin: 1,
+          // Ingen anticipatePin: med smooth scroll giver den et lille "hop"
+          // når pin'en aktiveres.
         },
       });
 
-      tl.to(intro, { opacity: 1, y: 0, duration: 0.15, ease: "power2.out" }, 0);
+      // Blid opacity-fade af intro-teksten (ingen y-bevægelse).
+      tl.to(intro, { opacity: 1, duration: 0.12, ease: "power1.out" }, 0);
 
+      // Tegn stregerne henover hele pin-forløbet, så de er færdige lige inden
+      // pin'en slippes.
       paths.forEach((path, i) => {
         tl.to(
           path,
           { strokeDashoffset: 0, duration: 1, ease: "none" },
-          0.05 + i * 0.15
+          0.05 + i * 0.12
         );
       });
 
-      // Fad KUN stregerne + intro-teksten ud (ikke hele sektionen til blank),
-      // og læg udtoningen helt i slutningen så den overlapper pin-release.
-      // Sektionens baggrund bliver stående, så næste sektion glider naturligt
-      // ind uden et brat dark->light "pop".
-      tl.to(svg, { opacity: 0, duration: 0.35, ease: "power2.in" }, 1.15);
-      tl.to(intro, { opacity: 0, y: -20, duration: 0.35, ease: "power2.in" }, 1.15);
+      // INGEN fade-til-blank til sidst. Når pin'en slippes scroller den mørke
+      // sektion naturligt væk og den lyse næste sektion glider ind — en helt
+      // almindelig, jævn scroll-overgang uden dark->light "pop".
 
       return () => {
         gsap.set([section, intro, svg], { clearProps: "opacity,transform" });
