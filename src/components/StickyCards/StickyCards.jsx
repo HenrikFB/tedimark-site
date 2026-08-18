@@ -17,7 +17,6 @@ export default function StickyCards() {
 
     const cards = section.querySelectorAll(".sticky-card");
     const totalCards = cards.length;
-    const segmentSize = 1 / totalCards;
     const cardYOffset = 5;
     const cardScaleStep = 0.075;
 
@@ -33,12 +32,19 @@ export default function StickyCards() {
     };
 
     const updateCards = (progress, keepLastCard) => {
+      // Pin-strækningen bruges kun til at peel'e de kort der skal væk.
+      // Launch ligger fremme når pinnen slipper — ingen død scroll på Step 04.
+      const peelCount = keepLastCard ? Math.max(totalCards - 1, 1) : totalCards;
+      const segmentSize = 1 / peelCount;
       const activeIndex = Math.min(
         Math.floor(progress / segmentSize),
         totalCards - 1
       );
-      const segProgress =
-        (progress - activeIndex * segmentSize) / segmentSize;
+      const segProgress = gsap.utils.clamp(
+        0,
+        1,
+        (progress - activeIndex * segmentSize) / segmentSize
+      );
 
       cards.forEach((card, i) => {
         if (i < activeIndex) {
@@ -49,9 +55,7 @@ export default function StickyCards() {
             yPercent: isLast
               ? -50
               : gsap.utils.interpolate(-50, -200, segProgress),
-            rotationX: isLast
-              ? 0
-              : gsap.utils.interpolate(0, 35, segProgress),
+            rotationX: isLast ? 0 : gsap.utils.interpolate(0, 35, segProgress),
             scale: 1,
           });
         } else {
@@ -86,7 +90,7 @@ export default function StickyCards() {
       ScrollTrigger.create({
         trigger: section,
         start: "top top",
-        end: () => "+=" + window.innerHeight * 4,
+        end: () => "+=" + window.innerHeight * 3,
         pin: true,
         pinSpacing: true,
         scrub: 1.2,
