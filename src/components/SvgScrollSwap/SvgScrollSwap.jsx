@@ -56,44 +56,37 @@ export default function SvgScrollSwap() {
       };
     });
 
-    // ── MOBIL/TOUCH (jævn overgang) ──
+    // ── MOBIL: ingen pin. Tegning + fade drives af sektionens naturlige
+    // passage gennem skærmen, så der aldrig er en død scroll-hale eller
+    // et pin-release-hop. Stregerne fader ud mens næste sektion glider ind.
     mm.add("(max-width: 768px)", () => {
-      // Ingen lodret forskydning af teksten -> intet "hop" på "Process"/"How I work".
       gsap.set(intro, { opacity: 0, y: 0 });
       gsap.set(svg, { opacity: 1 });
       setupPaths();
 
       const tl = gsap.timeline({
+        defaults: { ease: "none" },
         scrollTrigger: {
           trigger: section,
-          start: "top top",
-          // Lidt strammere pin-distance på lille skærm.
-          end: () => "+=" + window.innerHeight * 2,
-          pin: true,
-          pinSpacing: true,
-          scrub: 1,
+          start: "top 85%",
+          end: "bottom 15%",
+          scrub: 0.6,
           invalidateOnRefresh: true,
-          // Ingen anticipatePin: med smooth scroll giver den et lille "hop"
-          // når pin'en aktiveres.
         },
       });
 
-      // Blid opacity-fade af intro-teksten (ingen y-bevægelse).
-      tl.to(intro, { opacity: 1, duration: 0.12, ease: "power1.out" }, 0);
+      tl.to(intro, { opacity: 1, duration: 0.15 }, 0);
 
-      // Tegn stregerne henover hele pin-forløbet, så de er færdige lige inden
-      // pin'en slippes.
       paths.forEach((path, i) => {
         tl.to(
           path,
-          { strokeDashoffset: 0, duration: 1, ease: "none" },
-          0.05 + i * 0.12
+          { strokeDashoffset: 0, duration: 0.55 },
+          0.08 + i * 0.08
         );
       });
 
-      // INGEN fade-til-blank til sidst. Når pin'en slippes scroller den mørke
-      // sektion naturligt væk og den lyse næste sektion glider ind — en helt
-      // almindelig, jævn scroll-overgang uden dark->light "pop".
+      tl.to(svg, { opacity: 0, duration: 0.28 }, 0.72);
+      tl.to(intro, { opacity: 0, duration: 0.28 }, 0.72);
 
       return () => {
         gsap.set([section, intro, svg], { clearProps: "opacity,transform" });
