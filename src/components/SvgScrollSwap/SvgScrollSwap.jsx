@@ -11,55 +11,94 @@ export default function SvgScrollSwap() {
 
     const paths = section.querySelectorAll(".swap-path");
     const intro = section.querySelector(".svg-swap-intro");
+    const svg = section.querySelector(".svg-swap-svg");
 
-    gsap.set(intro, { opacity: 0, y: 20 });
-
-    paths.forEach((path) => {
-      const length = path.getTotalLength();
-      path.style.strokeDasharray = length;
-      path.style.strokeDashoffset = length;
-    });
-
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: section,
-        start: "top top",
-        end: `+=${window.innerHeight * 2.5}`,
-        pin: true,
-        scrub: 1,
-      },
-    });
-
-    tl.to(intro, {
-      opacity: 1,
-      y: 0,
-      duration: 0.15,
-      ease: "power2.out",
-    }, 0);
-
-    paths.forEach((path, i) => {
-      tl.to(
-        path,
-        {
-          strokeDashoffset: 0,
-          duration: 1,
-          ease: "none",
-        },
-        0.05 + i * 0.15
-      );
-    });
-
-    tl.to(section, {
-      opacity: 0,
-      duration: 0.2,
-      ease: "power2.in",
-    }, 1.3);
-
-    return () => {
-      ScrollTrigger.getAll().forEach((st) => {
-        if (st.trigger === section) st.kill();
+    const setupPaths = () => {
+      paths.forEach((path) => {
+        const length = path.getTotalLength();
+        path.style.strokeDasharray = length;
+        path.style.strokeDashoffset = length;
       });
     };
+
+    const mm = gsap.matchMedia();
+
+    // ── DESKTOP (uændret opførsel) ──
+    mm.add("(min-width: 769px)", () => {
+      gsap.set(intro, { opacity: 0, y: 20 });
+      setupPaths();
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: "top top",
+          end: () => "+=" + window.innerHeight * 2.5,
+          pin: true,
+          scrub: 1,
+          invalidateOnRefresh: true,
+          anticipatePin: 1,
+        },
+      });
+
+      tl.to(intro, { opacity: 1, y: 0, duration: 0.15, ease: "power2.out" }, 0);
+
+      paths.forEach((path, i) => {
+        tl.to(
+          path,
+          { strokeDashoffset: 0, duration: 1, ease: "none" },
+          0.05 + i * 0.15
+        );
+      });
+
+      tl.to(section, { opacity: 0, duration: 0.2, ease: "power2.in" }, 1.3);
+
+      return () => {
+        gsap.set([section, intro], { clearProps: "opacity,transform" });
+      };
+    });
+
+    // ── MOBIL/TOUCH (jævn overgang) ──
+    mm.add("(max-width: 768px)", () => {
+      gsap.set(intro, { opacity: 0, y: 20 });
+      gsap.set([svg, intro], { opacity: 1 });
+      setupPaths();
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: "top top",
+          // Lidt strammere pin-distance på lille skærm.
+          end: () => "+=" + window.innerHeight * 2,
+          pin: true,
+          scrub: 1,
+          invalidateOnRefresh: true,
+          anticipatePin: 1,
+        },
+      });
+
+      tl.to(intro, { opacity: 1, y: 0, duration: 0.15, ease: "power2.out" }, 0);
+
+      paths.forEach((path, i) => {
+        tl.to(
+          path,
+          { strokeDashoffset: 0, duration: 1, ease: "none" },
+          0.05 + i * 0.15
+        );
+      });
+
+      // Fad KUN stregerne + intro-teksten ud (ikke hele sektionen til blank),
+      // og læg udtoningen helt i slutningen så den overlapper pin-release.
+      // Sektionens baggrund bliver stående, så næste sektion glider naturligt
+      // ind uden et brat dark->light "pop".
+      tl.to(svg, { opacity: 0, duration: 0.35, ease: "power2.in" }, 1.15);
+      tl.to(intro, { opacity: 0, y: -20, duration: 0.35, ease: "power2.in" }, 1.15);
+
+      return () => {
+        gsap.set([section, intro, svg], { clearProps: "opacity,transform" });
+      };
+    });
+
+    return () => mm.revert();
   }, []);
 
   return (
@@ -80,6 +119,7 @@ export default function SvgScrollSwap() {
       </div>
 
       <svg
+        className="svg-swap-svg"
         style={{
           position: "absolute",
           inset: 0,
