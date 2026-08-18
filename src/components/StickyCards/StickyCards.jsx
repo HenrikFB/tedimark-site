@@ -21,55 +21,81 @@ export default function StickyCards() {
     const cardYOffset = 5;
     const cardScaleStep = 0.075;
 
-    cards.forEach((card, i) => {
-      gsap.set(card, {
-        xPercent: -50,
-        yPercent: -50 + i * cardYOffset,
-        scale: 1 - i * cardScaleStep,
+    const resetCards = () => {
+      cards.forEach((card, i) => {
+        gsap.set(card, {
+          xPercent: -50,
+          yPercent: -50 + i * cardYOffset,
+          rotationX: 0,
+          scale: 1 - i * cardScaleStep,
+        });
+      });
+    };
+
+    const updateCards = (progress, keepLastCard) => {
+      const activeIndex = Math.min(
+        Math.floor(progress / segmentSize),
+        totalCards - 1
+      );
+      const segProgress =
+        (progress - activeIndex * segmentSize) / segmentSize;
+
+      cards.forEach((card, i) => {
+        if (i < activeIndex) {
+          gsap.set(card, { yPercent: -250, rotationX: 35 });
+        } else if (i === activeIndex) {
+          const isLast = keepLastCard && i === totalCards - 1;
+          gsap.set(card, {
+            yPercent: isLast
+              ? -50
+              : gsap.utils.interpolate(-50, -200, segProgress),
+            rotationX: isLast
+              ? 0
+              : gsap.utils.interpolate(0, 35, segProgress),
+            scale: 1,
+          });
+        } else {
+          const behindIndex = i - activeIndex;
+          gsap.set(card, {
+            yPercent: -50 + (behindIndex - segProgress) * cardYOffset,
+            rotationX: 0,
+            scale: 1 - (behindIndex - segProgress) * cardScaleStep,
+          });
+        }
+      });
+    };
+
+    const mm = gsap.matchMedia();
+
+    mm.add("(min-width: 769px)", () => {
+      resetCards();
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top top",
+        end: () => "+=" + window.innerHeight * 8,
+        pin: true,
+        pinSpacing: true,
+        scrub: 1,
+        invalidateOnRefresh: true,
+        onUpdate: (self) => updateCards(self.progress, false),
       });
     });
 
-    const st = ScrollTrigger.create({
-      trigger: section,
-      start: "top top",
-      end: `+=${window.innerHeight * 8}px`,
-      pin: true,
-      pinSpacing: true,
-      scrub: 1,
-      onUpdate: (self) => {
-        const progress = self.progress;
-        const activeIndex = Math.min(
-          Math.floor(progress / segmentSize),
-          totalCards - 1
-        );
-        const segProgress =
-          (progress - activeIndex * segmentSize) / segmentSize;
-
-        cards.forEach((card, i) => {
-          if (i < activeIndex) {
-            gsap.set(card, { yPercent: -250, rotationX: 35 });
-          } else if (i === activeIndex) {
-            gsap.set(card, {
-              yPercent: gsap.utils.interpolate(-50, -200, segProgress),
-              rotationX: gsap.utils.interpolate(0, 35, segProgress),
-              scale: 1,
-            });
-          } else {
-            const behindIndex = i - activeIndex;
-            const currentYOffset = (behindIndex - segProgress) * cardYOffset;
-            const currentScale =
-              1 - (behindIndex - segProgress) * cardScaleStep;
-            gsap.set(card, {
-              yPercent: -50 + currentYOffset,
-              rotationX: 0,
-              scale: currentScale,
-            });
-          }
-        });
-      },
+    mm.add("(max-width: 768px)", () => {
+      resetCards();
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top top",
+        end: () => "+=" + window.innerHeight * 4,
+        pin: true,
+        pinSpacing: true,
+        scrub: 1.2,
+        invalidateOnRefresh: true,
+        onUpdate: (self) => updateCards(self.progress, true),
+      });
     });
 
-    return () => st.kill();
+    return () => mm.revert();
   }, []);
 
   return (
