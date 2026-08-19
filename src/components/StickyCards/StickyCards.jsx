@@ -10,9 +10,11 @@ const stepIcons = [Search, Compass, Hammer, Rocket];
 
 export default function StickyCards() {
   const sectionRef = useRef(null);
+  const spacerRef = useRef(null);
 
   useEffect(() => {
     const section = sectionRef.current;
+    const spacer = spacerRef.current;
     if (!section) return;
 
     const cards = section.querySelectorAll(".sticky-card");
@@ -32,18 +34,20 @@ export default function StickyCards() {
     };
 
     const updateCards = (progress, keepLastCard) => {
-      // Pin-strækningen bruges kun til at peel'e de kort der skal væk.
-      // Launch ligger fremme når pinnen slipper — ingen død scroll på Step 04.
       const peelCount = keepLastCard ? Math.max(totalCards - 1, 1) : totalCards;
+      // På mobil bruges sidste del af pinnen til at Stats dækker Launch.
+      const peelProgress = keepLastCard
+        ? gsap.utils.clamp(0, 1, progress * ((peelCount + 1) / peelCount))
+        : progress;
       const segmentSize = 1 / peelCount;
       const activeIndex = Math.min(
-        Math.floor(progress / segmentSize),
+        Math.floor(peelProgress / segmentSize),
         totalCards - 1
       );
       const segProgress = gsap.utils.clamp(
         0,
         1,
-        (progress - activeIndex * segmentSize) / segmentSize
+        (peelProgress - activeIndex * segmentSize) / segmentSize
       );
 
       cards.forEach((card, i) => {
@@ -73,6 +77,7 @@ export default function StickyCards() {
 
     mm.add("(min-width: 769px)", () => {
       resetCards();
+      if (spacer) spacer.style.height = "0px";
       ScrollTrigger.create({
         trigger: section,
         start: "top top",
@@ -87,16 +92,27 @@ export default function StickyCards() {
 
     mm.add("(max-width: 768px)", () => {
       resetCards();
+      const setSpacer = () => {
+        if (spacer) spacer.style.height = `${window.innerHeight * 3}px`;
+      };
+      setSpacer();
+
       ScrollTrigger.create({
         trigger: section,
         start: "top top",
-        end: () => "+=" + window.innerHeight * 3,
+        // 3 skærme til bladre + 1 skærm så Stats kan dække Launch før unpin.
+        end: () => "+=" + window.innerHeight * 4,
         pin: true,
-        pinSpacing: true,
+        pinSpacing: false,
         scrub: 1.2,
         invalidateOnRefresh: true,
+        onRefresh: setSpacer,
         onUpdate: (self) => updateCards(self.progress, true),
       });
+
+      return () => {
+        if (spacer) spacer.style.height = "0px";
+      };
     });
 
     return () => mm.revert();
@@ -173,6 +189,7 @@ export default function StickyCards() {
           );
         })}
       </section>
+      <div className="sticky-cards-exit-spacer" ref={spacerRef} aria-hidden="true" />
     </>
   );
 }

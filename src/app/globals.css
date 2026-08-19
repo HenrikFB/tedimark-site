@@ -493,6 +493,11 @@ h1, h2, h3, h4 {
   background-color: #e3e3db;
 }
 
+.sticky-cards-exit-spacer {
+  height: 0;
+  pointer-events: none;
+}
+
 .sticky-card {
   position: absolute;
   top: 50%;
@@ -1072,7 +1077,22 @@ h1, h2, h3, h4 {
     flex-direction: column;
   }
   .sticky-card .card-col { width: 100%; }
+  .sticky-cards-section {
+    z-index: 1;
+  }
+  .stats-section {
+    position: relative;
+    z-index: 2;
+    max-width: none;
+    width: 100%;
+    margin: 0;
+    min-height: 100vh;
+    background: var(--bg);
+    box-sizing: border-box;
+  }
   .stats-layout {
+    max-width: 1200px;
+    margin: 0 auto;
     flex-direction: column;
     gap: 2.5rem;
     align-items: flex-start;
