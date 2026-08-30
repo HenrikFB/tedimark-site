@@ -12,9 +12,13 @@ flowchart LR
     upsell --> platform["LANGSIGTET (år 1+)<br/>Idé 3: Knowledge platform /<br/>platform engineering"]
 ```
 
+
+
 Sælg idé 1+4 først. Idé 2 og 5 er naturlige udvidelser hos kunder, der allerede har fået værdi. Idé 3 er et produkt, ikke en freelance-ydelse — den kræver flere kunder med samme behov, før den giver mening.
 
 ---
+
+
 
 ## Idé 1: Dataekstraktion (ustruktureret → struktureret) — SÆLG DENNE FØRST
 
@@ -28,13 +32,15 @@ Sælg idé 1+4 først. Idé 2 og 5 er naturlige udvidelser hos kunder, der aller
 
 **Konkrete use cases at sælge:**
 
-| Use case | Kunde | Værktøjer |
-|---|---|---|
-| Fakturaer/bilag → økonomisystem | Bogholderi, alle SMV'er | LlamaIndex/LlamaParse eller Azure Document Intelligence + n8n → e-conomic/Dinero API |
-| Kontrakter → nøgledata (parter, datoer, beløb, opsigelse) | Ejendom, advokat | LlamaIndex + struktureret output (JSON schema) |
-| Rodede filarkiver (PDF/PPT/Excel) → søgbar videnbase | Rådgivere, finans | unstructured.io + vektordatabase |
-| Due diligence-dokumentgennemgang | Finans/M&A (jf. dine llamaindex-finance-noter) | Agentic extraction + rapportgenerering |
-| Webscraping → strukturerede leads/prisdata | E-commerce, salg | Playwright/Firecrawl + n8n |
+
+| Use case                                                  | Kunde                                          | Værktøjer                                                                            |
+| --------------------------------------------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------ |
+| Fakturaer/bilag → økonomisystem                           | Bogholderi, alle SMV'er                        | LlamaIndex/LlamaParse eller Azure Document Intelligence + n8n → e-conomic/Dinero API |
+| Kontrakter → nøgledata (parter, datoer, beløb, opsigelse) | Ejendom, advokat                               | LlamaIndex + struktureret output (JSON schema)                                       |
+| Rodede filarkiver (PDF/PPT/Excel) → søgbar videnbase      | Rådgivere, finans                              | unstructured.io + vektordatabase                                                     |
+| Due diligence-dokumentgennemgang                          | Finans/M&A (jf. dine llamaindex-finance-noter) | Agentic extraction + rapportgenerering                                               |
+| Webscraping → strukturerede leads/prisdata                | E-commerce, salg                               | Playwright/Firecrawl + n8n                                                           |
+
 
 **Teknisk stak-anbefaling** (hold den lille): LlamaParse/LlamaIndex til PDF'er, unstructured.io til blandede formater, n8n som orkestrering, struktureret output via JSON schemas, human-in-the-loop-validering i et regneark eller simpelt UI. Byg det samme mønster igen og igen — det er dér, marginen kommer fra.
 
@@ -46,6 +52,8 @@ Sælg idé 1+4 først. Idé 2 og 5 er naturlige udvidelser hos kunder, der aller
 
 - Indgående email med bilag → klassificér → udtræk → journalisér/bogfør.
 - Form-filling: kundens data → automatisk udfyldte standarddokumenter (kontrakter, ansøgninger, rapporter). CopilotKits "Form Filling Copilot" fra dine noter er et godt UI-mønster, hvis kunden vil have en chat-oplevelse oven på.
+
+
 
 ## Idé 2: Standardisering og centralisering af prompts/workflows (MCP) — UPSELL
 
@@ -82,6 +90,8 @@ Hos større kunder (finans, forsikring, ejendom) kan det senere sælges som selv
 **Det rigtige træk**: Lever idé 1+4-projekter, og læg mærke til hvad du bygger igen og igen. Efter 5+ kunder VED du, hvad platformen skal kunne — og du har kunder at sælge den til fra dag 1. Indtil da: byg din egen interne værktøjskasse (skabelon-workflows, PII-node, ekstraktions-pipelines), som reelt er platformens v0.
 
 ---
+
+
 
 ## Svar på dine to direkte spørgsmål
 

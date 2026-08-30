@@ -48,3 +48,5 @@
 | `05-cold-outreach.md` | Dansk outreach-playbook: listebygning, skabeloner, opfølgningskadence |
 | `06-90-dages-plan.md` | Uge-for-uge plan tilpasset fuldtidsjob |
 | `07-markedsdrevne-muligheder.md` | Idébank UD OVER dine egne idéer: 8 tilbud baseret på de problemer firmaer reelt har med AI lige nu (fejlede pilots, upålidelige chatbots, EU AI Act, ubrugte Copilot-licenser m.m.) |
+| `08-tilbud-og-priser.md` | Komplet tilbudskatalog for hele din tværfaglige profil: 17 tilbud i tre trin (audits → builds → recurring) med DKK-priser benchmarket mod 2026-markedet |
+| `09-content-idebank.md` | 60+ konkrete post-idéer med færdige hooks, fordelt på Authority/Educational/Social proof/Personal, 10 lead magnet-idéer og kobling til hvert tilbud i kataloget |

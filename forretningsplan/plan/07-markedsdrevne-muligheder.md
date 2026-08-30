@@ -10,6 +10,8 @@ De 8 muligheder herunder er sorteret efter, hvor godt de passer til dig lige nu.
 
 ---
 
+
+
 ## 1. "AI Pilot Rescue" — red den strandede POC (AI Engineering)
 
 **Problemet i markedet**: Langt de fleste GenAI-pilots når aldrig i produktion. Typiske årsager: demoen virkede på 10 dokumenter men ikke på 10.000, ingen håndterede fejltilfælde, ingen ejede projektet efter konsulenten/praktikanten forsvandt, eller svarene var for upålidelige til rigtige brugere.
@@ -78,6 +80,8 @@ De 8 muligheder herunder er sorteret efter, hvor godt de passer til dig lige nu.
 
 ---
 
+
+
 ## Hvordan det spiller sammen med din kerneplan
 
 ```mermaid
@@ -88,7 +92,10 @@ flowchart TD
     udvid --> abo["Abonnement: drift, overvågning,<br/>standardisering (din idé 2),<br/>PII-motor (din idé 5)"]
 ```
 
+
+
 - **Dit spydspidstilbud ændrer sig ikke** — Document AI Pilot er stadig det letteste første salg. Men mulighed 1, 4 og 5 er alternative *indgange* til kunder, der allerede har brugt penge på AI: de har bevist budget og smerte, og "fiks det" er et lettere salg end "start noget nyt".
 - **Content**: Hver mulighed herover er 2-3 LinkedIn-posts (fx "Why most AI pilots never reach production — and the 3 fixes I see work", "Your team has Copilot licenses. Here's why nothing changed."). Flet dem ind i kalenderen i `03-content-strategi.md` fra uge 5.
 - **Outreach**: Brug mulighed 1/4/5-hooks til virksomheder, hvor du kan se AI-aktivitet (jobopslag med "AI", LinkedIn-posts om deres pilots, presseomtale) — og Document AI Pilot-hooket til resten. Se `05-cold-outreach.md`.
 - **Prisstruktur**: Muligheder 1, 2 og 4 er audits/scans (10.000-15.000 kr fast pris) — lav risiko for kunden, og de producerer ALTID en opgaveliste, som du naturligt er førstevalg til at løse.
+
