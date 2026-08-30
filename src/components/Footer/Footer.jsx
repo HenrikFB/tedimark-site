@@ -112,7 +112,7 @@ export default function Footer() {
           &copy; 2026 TeDiMark
         </p>
         <div style={{ display: "flex", gap: "1.5rem" }}>
-          {["Services", "Projects", "About", "Contact"].map((link) => (
+          {["Services", "Projects", "Insights", "About", "Contact"].map((link) => (
             <Link
               key={link}
               href={`/${link.toLowerCase()}`}

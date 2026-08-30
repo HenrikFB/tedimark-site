@@ -1,4 +1,5 @@
 import { services } from "@/lib/content";
+import { getPostsByService } from "@/lib/posts";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Footer from "@/components/Footer/Footer";
@@ -14,6 +15,7 @@ export default async function ServicePage({ params }) {
   if (!service) notFound();
 
   const otherServices = services.filter((s) => s.slug !== slug).slice(0, 3);
+  const relatedInsights = getPostsByService(slug);
 
   return (
     <main>
@@ -63,6 +65,48 @@ export default async function ServicePage({ params }) {
             </span>
           ))}
         </div>
+
+        {relatedInsights.length > 0 && (
+          <div style={{ marginTop: "4rem", paddingTop: "2rem", borderTop: "1px solid var(--border)" }}>
+            <h3
+              style={{
+                fontFamily: "'Barlow Condensed', sans-serif",
+                fontSize: "1.5rem",
+                fontWeight: 800,
+                textTransform: "uppercase",
+                marginBottom: "1.5rem",
+              }}
+            >
+              Related Insights
+            </h3>
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+              {relatedInsights.map((p) => (
+                <Link
+                  key={p.slug}
+                  href={`/insights/${p.slug}`}
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    gap: "1rem",
+                    padding: "1rem 1.5rem",
+                    background: "var(--bg-elevated)",
+                    border: "1px solid var(--border)",
+                    borderRadius: "0.75rem",
+                    textDecoration: "none",
+                    color: "var(--text-primary)",
+                    transition: "all 0.3s ease",
+                  }}
+                >
+                  <span style={{ fontSize: "0.95rem", fontWeight: 600 }}>
+                    {p.title}
+                  </span>
+                  <span style={{ color: p.color, flexShrink: 0 }}>→</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
 
         <div style={{ marginTop: "4rem", paddingTop: "2rem", borderTop: "1px solid var(--border)" }}>
           <h3
