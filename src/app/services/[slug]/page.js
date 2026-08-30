@@ -31,6 +31,31 @@ export default async function ServicePage({ params }) {
           {service.fullDesc}
         </p>
 
+        {service.sections?.length > 0 && (
+          <div className="service-sections">
+            {service.sectionsIntro && (
+              <p className="service-sections-intro">{service.sectionsIntro}</p>
+            )}
+            <h3 className="service-sections-heading">What this looks like</h3>
+            <div className="service-sections-list">
+              {service.sections.map((section, i) => (
+                <div key={section.title} className="service-section-item">
+                  <span
+                    className="service-section-num"
+                    style={{ color: service.color }}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <div>
+                    <h4 className="service-section-title">{section.title}</h4>
+                    <p className="service-section-body">{section.body}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         <div className="service-tags">
           {service.tags.map((tag) => (
             <span key={tag} className="service-tag" style={{ borderColor: service.color, color: service.color }}>

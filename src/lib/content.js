@@ -17,6 +17,26 @@ export const services = [
       "LLM integrations, RAG pipelines, fine-tuning, and AI-driven features that create real business value.",
     fullDesc:
       "I build production-grade AI systems — from conversational chatbots with semantic search to automated data extraction pipelines. My AI engineering goes beyond prototypes: I deliver fine-tuned models, RAG architectures, and intelligent features that integrate seamlessly into your existing stack.",
+    sectionsIntro:
+      "The highest-impact AI work is rarely a chatbot. It's operational systems that extract data, clean messy files, connect to your tools, and stay reliable in production.",
+    sections: [
+      {
+        title: "Documents",
+        body: "Receipts, forms, reports, contracts. Extract structured data — or fill forms from uploads.",
+      },
+      {
+        title: "Messy files → usable data",
+        body: "Business data lives in PDFs, decks, and reports. Clean and structure it so AI can search and act on it.",
+      },
+      {
+        title: "Connect AI to your tools",
+        body: "Update a database, check inventory, send a report, start a workflow. AI that does work — not just talk.",
+      },
+      {
+        title: "Make it reliable",
+        body: "Demos are easy. Production needs accuracy and consistency. Eval, improve, ship systems your team trusts daily.",
+      },
+    ],
     tags: ["GPT", "Claude", "LangChain", "Vector DBs", "RAG", "Fine-tuning"],
     color: "#2563EB",
     cardColors: ["#EF4444", "#FACC15", "#2563EB"],

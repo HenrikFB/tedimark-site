@@ -858,6 +858,68 @@ h1, h2, h3, h4 {
   margin-bottom: 2rem;
 }
 
+.service-sections {
+  margin: 3rem 0;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.service-sections-intro {
+  font-size: 1.15rem !important;
+  line-height: 1.7 !important;
+  color: var(--text-primary) !important;
+  margin-bottom: 2.5rem !important;
+}
+
+.service-sections-heading {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 1.75rem;
+  color: var(--text-primary);
+}
+
+.service-sections-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.service-section-item {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+.service-section-num {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.4;
+  flex-shrink: 0;
+  min-width: 2rem;
+}
+
+.service-section-title {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin: 0 0 0.35rem;
+  color: var(--text-primary);
+}
+
+.service-section-body {
+  font-size: 1.05rem !important;
+  line-height: 1.7 !important;
+  color: var(--text-secondary) !important;
+  margin: 0 !important;
+}
+
 .service-tags {
   display: flex;
   flex-wrap: wrap;
