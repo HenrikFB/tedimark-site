@@ -51,8 +51,6 @@ export default function LatestInsights() {
               style={{ background: post.color }}
             />
             <div className="insight-card-meta">
-              <span>{post.dateLabel}</span>
-              <span>·</span>
               <span>{post.readTime}</span>
             </div>
             <h3 className="insight-card-title">{post.title}</h3>

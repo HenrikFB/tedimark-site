@@ -60,8 +60,6 @@ export default async function InsightPage({ params }) {
                 : "rgba(255,255,255,0.7)",
           }}
         >
-          <span>{post.dateLabel}</span>
-          <span>·</span>
           <span>{post.readTime}</span>
           <span>·</span>
           <span>{post.tags.join(", ")}</span>
