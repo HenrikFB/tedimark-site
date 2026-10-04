@@ -86,7 +86,7 @@ export default function ProjectsPage() {
               >
                 {project.category}
               </div>
-              <CharReveal animateOnScroll stagger={0.03} duration={0.5}>
+              <CharReveal stagger={0.03} duration={0.5}>
                 <h3
                   style={{
                     fontFamily: "'Barlow Condensed', sans-serif",
