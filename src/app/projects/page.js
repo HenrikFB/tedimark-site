@@ -1,5 +1,7 @@
+import Link from "next/link";
 import Footer from "@/components/Footer/Footer";
 import {
+  featuredProject,
   projects,
   researchProjects,
   educationCourses,
@@ -43,87 +45,69 @@ export default function ProjectsPage() {
       </section>
 
       {/* ── Selected Projects ── */}
-      <section className="selected-projects" style={{ padding: "2rem", maxWidth: "1200px", margin: "0 auto" }}>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(350px, 1fr))",
-            gap: "1.5rem",
-          }}
-        >
+      <section className="selected-projects">
+        <article className="featured-project">
+          <div
+            className="featured-project-accent"
+            style={{ background: featuredProject.color }}
+          />
+          <div>
+            <span className="featured-project-badge">
+              {featuredProject.badge}
+            </span>
+            <div className="featured-project-category">
+              {featuredProject.category}
+            </div>
+            <CharReveal stagger={0.03} duration={0.5}>
+              <h3 className="featured-project-title">{featuredProject.title}</h3>
+            </CharReveal>
+            <p className="featured-project-desc">{featuredProject.description}</p>
+            <div className="featured-project-tags">
+              {featuredProject.tags.map((tag) => (
+                <span key={tag} className="project-tag">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+          <div className="featured-project-panel">
+            <ul className="featured-project-list">
+              {featuredProject.capabilities.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+            <div className="featured-project-ctas">
+              <Link
+                href={featuredProject.insightHref}
+                className="featured-project-cta featured-project-cta-primary"
+              >
+                Read the architecture <span>→</span>
+              </Link>
+              <Link
+                href={featuredProject.contactHref}
+                className="featured-project-cta featured-project-cta-secondary"
+              >
+                Discuss a custom build
+              </Link>
+            </div>
+          </div>
+        </article>
+
+        <div className="projects-grid">
           {projects.map((project, i) => (
-            <div
-              key={i}
-              style={{
-                background: "var(--bg-elevated)",
-                border: "1px solid var(--border)",
-                borderRadius: "1rem",
-                padding: "2rem",
-                position: "relative",
-                overflow: "hidden",
-                transition: "all 0.4s ease",
-              }}
-            >
+            <div key={i} className="project-card">
               <div
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  height: "3px",
-                  background: project.color,
-                }}
+                className="project-card-accent"
+                style={{ background: project.color }}
               />
-              <div
-                style={{
-                  fontSize: "0.7rem",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.1em",
-                  color: "var(--text-muted)",
-                  fontWeight: 600,
-                  marginBottom: "0.75rem",
-                }}
-              >
-                {project.category}
-              </div>
+              <div className="project-card-category">{project.category}</div>
               <CharReveal stagger={0.03} duration={0.5}>
-                <h3
-                  style={{
-                    fontFamily: "'Barlow Condensed', sans-serif",
-                    fontSize: "1.5rem",
-                    fontWeight: 800,
-                    textTransform: "uppercase",
-                    marginBottom: "0.5rem",
-                  }}
-                >
-                  {project.title}
-                </h3>
+                <h3 className="project-card-title">{project.title}</h3>
               </CharReveal>
-              <p
-                style={{
-                  fontSize: "0.9rem",
-                  color: "var(--text-secondary)",
-                  lineHeight: 1.6,
-                  marginBottom: "1rem",
-                }}
-              >
-                {project.description}
-              </p>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "0.35rem" }}>
+              <p className="project-card-desc">{project.description}</p>
+              <div className="project-card-tags">
                 {project.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    style={{
-                      fontSize: "0.65rem",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.06em",
-                      color: "var(--text-muted)",
-                      background: "rgba(255,255,255,0.03)",
-                      border: "1px solid var(--border)",
-                      padding: "0.2rem 0.6rem",
-                      borderRadius: "100px",
-                    }}
-                  >
+                  <span key={tag} className="project-tag">
                     {tag}
                   </span>
                 ))}

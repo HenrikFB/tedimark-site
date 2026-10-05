@@ -147,6 +147,32 @@ export const processSteps = [
   },
 ];
 
+export const featuredProject = {
+  title: "Configurable AI Engineering Platform",
+  category: "AI Engineering · B2B",
+  badge: "Available as a custom build",
+  description:
+    "A researcher/writer architecture with routing, structured aggregation, and verification — configured to your data and fitted into your automation flow. Optional UI for search, folders, and a workspace that is not a chat box.",
+  capabilities: [
+    "Automatic routing of files into a folder hierarchy",
+    "Aggregator node: unstructured data → structured records",
+    "Reflection / verification step before anything is delivered",
+    "Optional UI: full-text search, resizable panes, drag-and-drop folders",
+    "Config surface for parsers, prompts, and skills — plus a chat that tunes them without running the workflow",
+  ],
+  tags: [
+    "Researcher/Writer",
+    "Routing",
+    "Data aggregator",
+    "Reflection",
+    "Config",
+    "Hybrid search",
+  ],
+  color: "#2563EB",
+  insightHref: "/insights/the-ai-engineering-platform-every-company-rebuilds",
+  contactHref: "/contact",
+};
+
 export const projects = [
   {
     title: "AI-Powered Course Chatbot",
@@ -332,6 +358,7 @@ export const stats = [
 ];
 
 export const marqueeRow1 = [
+  "Configurable AI Engineering Platform",
   "Menu-to-JSON Data Pipeline",
   "AI Enterprise Compliance Chatbot",
   "Tax Authority Data Automation",

@@ -1,3 +1,4 @@
+import TheAiEngineeringPlatformEveryCompanyRebuilds from "@/content/posts/TheAiEngineeringPlatformEveryCompanyRebuilds";
 import WhereAICreatesBusinessValue from "@/content/posts/WhereAICreatesBusinessValue";
 import WhyAIPilotsDie from "@/content/posts/WhyAIPilotsDie";
 import DocumentsToStructuredData from "@/content/posts/DocumentsToStructuredData";
@@ -5,6 +6,26 @@ import HumanInTheLoopIsAFeature from "@/content/posts/HumanInTheLoopIsAFeature";
 import ConnectingAIWithoutAPIs from "@/content/posts/ConnectingAIWithoutAPIs";
 
 export const posts = [
+  {
+    slug: "the-ai-engineering-platform-every-company-rebuilds",
+    title: "The AI Engineering Platform Every Company Rebuilds",
+    excerpt:
+      "n8n, Langflow, and LlamaIndex are excellent pieces. They still leave routing, structured aggregation, verification, and a real UI as homework. The architecture of a configurable researcher/writer platform.",
+    date: "2026-10-05",
+    dateLabel: "Oct 2026",
+    readTime: "8 min read",
+    tags: ["AI Engineering", "Architecture", "Platform"],
+    services: ["ai-engineering", "automation", "software-development"],
+    featured: true,
+    color: "#2563EB",
+    Component: TheAiEngineeringPlatformEveryCompanyRebuilds,
+    cta: {
+      title: "Get this fitted to your flow",
+      body: "I build this as a custom platform into the automation you already run — n8n or otherwise. Routing, aggregation, and verification as nodes; optional UI for search, folders, and a resizable workspace; a config surface for parsers, prompts, and skills.",
+      href: "/contact",
+      label: "Start a platform conversation",
+    },
+  },
   {
     slug: "where-ai-actually-creates-business-value",
     title: "Where AI Actually Creates Business Value",

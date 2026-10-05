@@ -116,28 +116,48 @@ export default async function InsightPage({ params }) {
           </div>
         )}
 
-        <div style={{ marginTop: "4rem", textAlign: "center" }}>
-          <a
-            href="mailto:henrik@fogbunzel.dk"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "0.75rem",
-              background: post.color,
-              color: post.color === "#FACC15" ? "#0a0a0f" : "#fff",
-              padding: "1rem 2.5rem",
-              borderRadius: "100px",
-              fontWeight: 700,
-              fontSize: "1rem",
-              textDecoration: "none",
-              fontFamily: "'Barlow Condensed', sans-serif",
-              textTransform: "uppercase",
-              letterSpacing: "0.05em",
-            }}
+        {post.cta ? (
+          <div
+            className="insight-cta"
+            style={{ borderLeftColor: post.color }}
           >
-            Discuss your project <span>→</span>
-          </a>
-        </div>
+            <h3 className="insight-cta-title">{post.cta.title}</h3>
+            <p className="insight-cta-body">{post.cta.body}</p>
+            <Link
+              href={post.cta.href}
+              className="insight-cta-button"
+              style={{
+                background: post.color,
+                color: post.color === "#FACC15" ? "#0a0a0f" : "#fff",
+              }}
+            >
+              {post.cta.label} <span>→</span>
+            </Link>
+          </div>
+        ) : (
+          <div style={{ marginTop: "4rem", textAlign: "center" }}>
+            <a
+              href="mailto:henrik@fogbunzel.dk"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.75rem",
+                background: post.color,
+                color: post.color === "#FACC15" ? "#0a0a0f" : "#fff",
+                padding: "1rem 2.5rem",
+                borderRadius: "100px",
+                fontWeight: 700,
+                fontSize: "1rem",
+                textDecoration: "none",
+                fontFamily: "'Barlow Condensed', sans-serif",
+                textTransform: "uppercase",
+                letterSpacing: "0.05em",
+              }}
+            >
+              Discuss your project <span>→</span>
+            </a>
+          </div>
+        )}
       </article>
 
       <Footer />
