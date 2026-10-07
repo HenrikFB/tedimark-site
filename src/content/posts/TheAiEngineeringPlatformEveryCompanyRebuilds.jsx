@@ -124,9 +124,18 @@ export default function TheAiEngineeringPlatformEveryCompanyRebuilds({
           the screen.
         </li>
         <li>
-          <strong>Strip the model</strong> when the document is
-          text-heavy, layout-stable, and the fields never move. Functional
-          code and ordinary algorithms still beat a prompt on those PDFs.
+          <strong>Strip the model on stable PDFs.</strong> When the
+          document is text-heavy, the layout does not move, and the fields
+          sit in the same place every time, a deterministic parse — OCR,
+          templates, rules — beats an LLM. You are not asking the model to
+          &quot;understand&quot; the page; you are reading coordinates.
+        </li>
+        <li>
+          <strong>Keep calculations and app logic in ordinary code.</strong>{" "}
+          Totals, VAT, matching, validation, routing — functional
+          programming and plain algorithms are still more robust than a
+          prompt. The model belongs where structure is fuzzy; the rest of
+          the app should stay deterministic.
         </li>
         <li>
           <strong>Deep agents are for long-running work.</strong> Spawning
